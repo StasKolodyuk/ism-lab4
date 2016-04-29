@@ -17,7 +17,7 @@ public class MonteCarloUtil {
     }
 
     public static double integrate(TriFunction<Double, Double, Double, Double> function, double a, double b, double c, double d, double e, double f, int n) {
-        return (b - a) * (d - c) / n * IntStream.range(0, n).mapToDouble(i -> function.apply(random(a, b), random(c, d), random(e, f))).sum();
+        return (b - a) * (d - c) * (f - e) / n * IntStream.range(0, n).mapToDouble(i -> function.apply(random(a, b), random(c, d), random(e, f))).sum();
     }
 
     public static double random(double a, double b) {

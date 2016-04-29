@@ -4,15 +4,11 @@ package by.bsu.kolodyuk;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.XYChart;
-import org.apache.commons.math3.linear.*;
 
-import javax.naming.SizeLimitExceededException;
 import java.net.URL;
-import java.util.Arrays;
 import java.util.ResourceBundle;
 import java.util.function.BiFunction;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import static java.lang.Math.*;
@@ -40,13 +36,8 @@ public class Controller implements Initializable
         IntStream.iterate(100, i -> i += 100).limit(1000).forEach(i -> series.getData().add(new XYChart.Data<>(i, abs(1 - MonteCarloUtil.integrate(triFunction, 0, 1, 0, 1, 0, 1, i)))));
         errorChart.getData().add(series);
 
-        try {
-            SLAEUtil.read("Kolodyuk.txt");
-            System.out.println(Arrays.stream(SLAEUtil.slau()).mapToObj(i -> i + "").collect(Collectors.joining(" ")));
-        } catch (Exception e) {
-            throw new RuntimeException();
-        }
-
+        SLAU slau = new SLAU();
+        slau.solve();
     }
 
 }
